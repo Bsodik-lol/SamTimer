@@ -3,7 +3,7 @@
     <!-- Header -->
     <string name="app_name">SamTimer</string>
     <string name="app_title">SamTimer</string>
-    <string name="app_subtitle">CVE-2026-98260 · Samsung Kernel LPE</string>
+    <string name="app_subtitle">CVE-2026-98260 · Vivo Kernel LPE</string>
 
     <!-- Root status -->
     <string name="root_checking">Checking…</string>
